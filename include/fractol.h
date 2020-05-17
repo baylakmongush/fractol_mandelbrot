@@ -45,8 +45,7 @@ typedef struct			s_cl
 	cl_command_queue	commands;
 	cl_program			program;
 	cl_kernel			kernel;
-	cl_mem				input;
-	cl_mem				output;
+	cl_mem				data;
 	char				*fractol;
 }						t_cl;
 
