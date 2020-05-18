@@ -20,5 +20,6 @@ t_fractol		init_sdl()
 									   SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     fract.renderer = SDL_CreateRenderer(fract.win, -1, SDL_RENDERER_ACCELERATED);
 	fract.surface = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0, 0);
+	fract.texture = SDL_CreateTexture(fract.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
 	return (fract);
 }
