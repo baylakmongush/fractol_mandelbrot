@@ -14,12 +14,12 @@ t_fractol		init_sdl()
 	t_fractol	fract;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-    fract.win = SDL_CreateWindow("mandelbrot", 
-                                       SDL_WINDOWPOS_UNDEFINED,
-                                       SDL_WINDOWPOS_UNDEFINED,
-									   SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    fract.renderer = SDL_CreateRenderer(fract.win, -1, SDL_RENDERER_ACCELERATED);
-	fract.surface = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0, 0);
-	fract.texture = SDL_CreateTexture(fract.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
+    fract.win = SDL_CreateWindow("SDL2 Pixel Drawing",
+        SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
+	fract.renderer = SDL_CreateRenderer(fract.win, -1, 0);
+   	fract.texture = SDL_CreateTexture(fract.renderer,
+        SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 640, 480);
+    fract.pixels = malloc(sizeof(Uint32) * 640 * 480);//new Uint32[640 * 480];
+    memset(fract.pixels, 255, 640 * 480 * sizeof(Uint32));
 	return (fract);
 }

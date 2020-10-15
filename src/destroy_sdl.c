@@ -11,7 +11,7 @@
 
 void	destroy_sdl(t_fractol fract)
 {
-	SDL_FreeSurface(fract.surface);
+	SDL_DestroyTexture(fract.texture);
     SDL_DestroyRenderer(fract.renderer);
     SDL_DestroyWindow(fract.win);
     SDL_Quit();

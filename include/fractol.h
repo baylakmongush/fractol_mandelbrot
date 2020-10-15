@@ -27,6 +27,7 @@ typedef struct			s_fractol
 	SDL_Renderer		*renderer;
 	SDL_Surface			*surface;
 	SDL_Texture			*texture;
+	Uint32				*pixels;
 	int					is_running;
 }						t_fractol;
 

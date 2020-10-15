@@ -20,26 +20,27 @@ int             main()
 
     fract = init_sdl();
     cl = init_cl();
-    cl.data = clCreateBuffer(cl.context, CL_MEM_WRITE_ONLY, 800 * 600 * sizeof(int), NULL, &cl.err);
+    cl.data = clCreateBuffer(cl.context, CL_MEM_WRITE_ONLY, 640 * 480 * sizeof(Uint32), NULL, &cl.err);
     cl.err  = clSetKernelArg(cl.kernel, 0, sizeof(cl_mem), &cl.data);
     cl.err = clEnqueueNDRangeKernel(cl.commands, cl.kernel, 1, NULL, global, NULL, 0, 0, 0);
-    cl.err = clEnqueueReadBuffer(cl.commands, cl.data, CL_TRUE, 0, 800 * 600 * sizeof(int), fract.surface->pixels, 0, NULL, NULL);
+    cl.err = clEnqueueReadBuffer(cl.commands, cl.data, CL_TRUE, 0, 640 * 480 * sizeof(Uint32), fract.pixels, 0, NULL, NULL);
    /* if (!cl.err)
     {
         printf("ERROR\n");
         exit(0);
     }*/
-    SDL_UpdateTexture(fract.texture, NULL, fract.surface->pixels, fract.surface->pitch);
-    SDL_RenderCopy(fract.renderer, fract.texture, NULL, NULL);    
-    SDL_DestroyTexture(fract.texture);
-    SDL_RenderPresent(fract.renderer);
+
     fract.is_running = 1;
     while (fract.is_running) {
+        SDL_UpdateTexture(fract.texture, NULL, fract.pixels, 640 * sizeof(Uint32));
         while (SDL_PollEvent(&fract.event)) {
             if (fract.event.type == SDL_QUIT || fract.event.key.keysym.sym == SDLK_ESCAPE) {
                 fract.is_running = 0;
        		}
     	}
+        SDL_RenderClear(fract.renderer);
+        SDL_RenderCopy(fract.renderer, fract.texture, NULL, NULL);
+        SDL_RenderPresent(fract.renderer);
 	}
     clFinish(cl.commands);
 	clReleaseMemObject(cl.data);
